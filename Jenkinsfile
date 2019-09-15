@@ -1,7 +1,7 @@
 node {
    stage('Code checkout') { // for display purposes
       // Get some code from a GitHub repository
-   checkout(git credentialsId: 'git', url: 'https://github.com/RedMonsters/guestbook') 
+   checkout(git credentialsId: 'satyasai', url: 'https://github.com/RedMonsters/guestbook') 
    }
       stage('Build') {
      withMaven(jdk: 'Java', maven: 'Maven')   {

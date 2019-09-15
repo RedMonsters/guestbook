@@ -1,26 +1,26 @@
 node {
    stage('Code checkout') { // for display purposes
       // Get some code from a GitHub repository
-   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'SATYA', url: 'https://github.com/itrainspartans/maven_app.git']]]) 
+   checkout(git credentialsId: 'satyagit', url: 'https://github.com/st-tu-dresden/guestbook.git') 
    }
       stage('Build') {
-     withMaven(jdk: 'java', maven: 'Maven')  {
+     withMaven(jdk: 'Java', maven: 'Maven')   {
       sh 'mvn clean compile'
      } 
    }
    stage('Test') {
-   withMaven(jdk: 'java', maven: 'Maven') {
+   withMaven(jdk: 'Java', maven: 'Maven')  {
       sh 'mvn test'
      }  
    }
-   stage('Sonar CodeAnalysis') {
-     withSonarQubeEnv(credentialsId: 'sonar') { {
-       sh 'mvn clean verify sonar:sonar'
-          }
+  // stage('Sonar CodeAnalysis') {
+   //  withSonarQubeEnv(credentialsId: 'sonar') { {
+    //   sh 'mvn clean verify sonar:sonar'
+     //     }
 
     }
    stage('Package') {
-    withMaven(jdk: 'java', maven: 'Maven') {
+  withMaven(jdk: 'Java', maven: 'Maven') {
       sh 'mvn package'
      }  
    }

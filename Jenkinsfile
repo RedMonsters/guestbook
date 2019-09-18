@@ -1,7 +1,7 @@
 node {
-   stage('Code checkout') { // for display purposes
-      // Get some code from a GitHub repository
-checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'satyasai', url: 'https://github.com/RedMonsters/guestbook.git']]])
+   stage('Code checkout') 
+   { 
+      checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'satyasai', url: 'https://github.com/RedMonsters/guestbook.git']]])
    }
       stage('Build') {
      withMaven(jdk: 'Java', maven: 'Maven')   {
@@ -13,10 +13,10 @@ checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleC
       sh 'mvn test'
      }  
    }
-  // stage('Sonar CodeAnalysis') {
-   //  withSonarQubeEnv(credentialsId: 'sonar') { {
-    //   sh 'mvn clean verify sonar:sonar'
-     //     }
+     stage('Sonar CodeAnalysis') {
+     withSonarQubeEnv(credentialsId: 'sonar') { 
+     sh 'mvn clean verify sonar:sonar'
+         }
 
     }
    stage('Package') {
